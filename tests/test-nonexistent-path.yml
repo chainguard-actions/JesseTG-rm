@@ -1,0 +1,25 @@
+name: Test removal of nonexistent path
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Confirm path does not exist
+        run: |
+          if [ -e /tmp/this-path-does-not-exist-12345 ]; then
+            echo "FAIL: path unexpectedly exists before test"
+            exit 1
+          fi
+          echo "Confirmed path does not exist"
+
+      - id: action
+        uses: .
+        with:
+          path: /tmp/this-path-does-not-exist-12345
+
+      - name: Assert action succeeded on nonexistent path
+        run: |
+          echo "PASS: action completed successfully even though path did not exist"

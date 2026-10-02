@@ -1,0 +1,32 @@
+name: Test directory removal
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Create a test directory with files
+        run: |
+          mkdir -p /tmp/test-rm-dir/subdir
+          echo "file1" > /tmp/test-rm-dir/file1.txt
+          echo "file2" > /tmp/test-rm-dir/subdir/file2.txt
+          if [ ! -d /tmp/test-rm-dir ]; then
+            echo "FAIL: could not create test directory"
+            exit 1
+          fi
+          echo "Test directory created successfully"
+
+      - id: action
+        uses: .
+        with:
+          path: /tmp/test-rm-dir
+
+      - name: Assert directory was removed
+        run: |
+          if [ -e /tmp/test-rm-dir ]; then
+            echo "FAIL: directory still exists after removal"
+            exit 1
+          fi
+          echo "PASS: directory was successfully removed"
