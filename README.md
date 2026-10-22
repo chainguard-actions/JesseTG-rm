@@ -11,6 +11,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
 | v1.0.0 | [`v1.0.0`](https://github.com/chainguard-actions/JesseTG-rm/tree/v1.0.0) | [`94440f3`](https://github.com/JesseTG/rm/commit/94440f309afcc4c37e6bf63eb0feca9e94dee5a3) |
+| v1.0.3 | [`v1.0.3`](https://github.com/chainguard-actions/JesseTG-rm/tree/v1.0.3) | [`a7df6e6`](https://github.com/JesseTG/rm/commit/a7df6e6edbbd7ea7440ea0a57342fc7798950e4f) |
 
 ## Privacy
 
