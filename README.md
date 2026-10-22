@@ -1,16 +1,38 @@
-# JesseTG/rm
+# Remove File
 
-Deletes a given file or folder in a cross-platform way. Succeeds even if there is
-no file at the requested path.
+**R**e**m**oves a given file or folder in a cross-platform way.
 
+Created by Jesse Talavera-Greenberg.
 
-Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at [https://github.com/JesseTG/rm](https://github.com/JesseTG/rm).
+# Installation
 
-## Versions
+Enable local and third-party actions for your repository, then just follow the instructions in Usage.
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v1.0.0 | [`v1.0.0`](https://github.com/chainguard-actions/JesseTG-rm/tree/v1.0.0) | [`94440f3`](https://github.com/JesseTG/rm/commit/94440f309afcc4c37e6bf63eb0feca9e94dee5a3) |
+## Usage
+
+Use this action in any particular step like so:
+
+```yaml
+- name: Remove File
+  uses: JesseTG/rm@v1.0.3
+  with:
+    path: /path/to/something/you/want/to/delete
+
+```
+
+Other useful facts:
+
+- Uses [`io.rmRF`](https://github.com/actions/toolkit/tree/master/packages/io#rm--rf), so it will remove files and directories recursively.
+- Succeeds even if the requested path doesn't exist.
+- Works on all environments.
+- Only supports one path at a time; for multiple paths, use this action multiple times.
+- Supports relative and absolute paths, but does *not* support globs or wildcards.
+- **Does not protect important system paths.** Be careful if you're using a self-hosted runner.
+- Can be used to remove files from your repository within a workflow, but you will have to commit the changes yourself.
+
+## License
+
+MIT.
 
 ## Privacy
 

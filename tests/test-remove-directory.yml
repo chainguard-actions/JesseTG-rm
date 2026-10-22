@@ -1,0 +1,30 @@
+name: Test remove directory
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create nested directory
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/rm-test-dir/sub/deeper"
+          echo "a" > "$GITHUB_WORKSPACE/rm-test-dir/a.txt"
+          echo "b" > "$GITHUB_WORKSPACE/rm-test-dir/sub/deeper/b.txt"
+          echo "keep" > "$GITHUB_WORKSPACE/rm-keep.txt"
+      - id: action
+        uses: .
+        with:
+          path: ${{ github.workspace }}/rm-test-dir
+      - name: Assert directory removed and sibling kept
+        run: |
+          if [ -e "$GITHUB_WORKSPACE/rm-test-dir" ]; then
+            echo "FAIL: directory still exists"
+            ls -laR "$GITHUB_WORKSPACE/rm-test-dir"
+            exit 1
+          fi
+          if [ ! -f "$GITHUB_WORKSPACE/rm-keep.txt" ]; then
+            echo "FAIL: sibling file was removed"
+            exit 1
+          fi
+          echo "PASS"
